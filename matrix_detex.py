@@ -1,13 +1,13 @@
 
 from Tkinter import Tk
 
-def copy(s):
-    Tk().clipboard_clear()
-    Tk().clipboard_append(s)
-    Tk().destroy()
-
+def copy(s, root):
+    root.clipboard_clear()
+    root.clipboard_append(s)
+    
 def toMat():
-    s = Tk().clipboard_get()
+    root = Tk()
+    s = root.clipboard_get()
     print s
 
     if "\\begin{" in s:
@@ -21,16 +21,19 @@ def toMat():
     s = "{{" + s + "}}"
 
     print s
-    copy(s)
+    copy(s, root)
+    root.destroy()
 
 def toTex():
-    s = Tk().clipboard_get()
+    root = Tk()
+    s = root.clipboard_get()
     print s
     
     s = s.replace("{{", "\\begin{bmatrix} \n")
     s = s.replace("}}", "\n\\end{bmatrix}")
-    s = s.replace("},{", "\\\\ \n")
+    s = s.replace("},{", "\\\\\n")
     s = s.replace(",", "&")
     
     print s
-    copy(s)
+    copy(s, root)
+    root.destroy()
