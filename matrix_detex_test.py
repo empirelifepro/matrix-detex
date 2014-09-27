@@ -1,9 +1,9 @@
 from matrix_detex import *
 
-def test():
-	root = Tk()
+def test_toMat():
 	s = "\\begin{bmatrix} a \cdot b & 0 \\\\ 0 & 1 \\end{bmatrix} \\begin{bmatrix} 0 & 1 \\\\ 1 & 0 \\end{bmatrix}"
-	#s = "\left( 13 \cdot 6 \right) \cdot \left( 12 \cdot 6 \right) \cdot \left( 11 \cdot 4 \right)"
-	copy(s , root)
-	toMat()
-	return root.clipboard_get() == "{{a*b,0}{0,1}}{{0,1},{1,0}}"
+	assert toMat(s)  == "{{a*b,0},{0,1}}{{0,1},{1,0}}"
+
+def test_toTex():
+	s = "{{a*b,0},{0,1}}{{0,1},{1,0}}"
+	assert toTex(s)  == "\\begin{bmatrix} \na \cdot b&0\\\\\n0&1\n\\end{bmatrix}\\begin{bmatrix} \n0&1\\\\\n1&0\n\\end{bmatrix}"
