@@ -1,5 +1,6 @@
 
 from Tkinter import Tk
+import re
 
 def copy(s, root):
     root.clipboard_clear()
@@ -10,15 +11,15 @@ def toMat():
     s = root.clipboard_get()
     print s
 
-    if "\\begin{" in s:
-        s = s[s.find('}', 0, len(s))+1:]
-    if "\\end{" in s:
-        s = s[:s.rfind('\\', 0, len(s))]
-    s = s.replace(" ", "")
-    s = s.replace("\n", "")
-    s = s.replace("&", ",")
-    s = s.replace("\\\\", "},{")
-    s = "{{" + s + "}}"
+    s = re.sub(r'\\begin{.+?}', '{{', s)
+    s = re.sub(r'\\end{.+?}', '}}', s)
+    s = s.replace(' ', '')
+    s = s.replace('\n', '')
+    s = s.replace('&', ',')
+    s = s.replace('\\\\', '},{')
+    s = s.replace('\cdot', '*')
+    s = s.replace('\left', '')
+    s = s.replace('\right', '')
 
     print s
     copy(s, root)
@@ -33,6 +34,7 @@ def toTex():
     s = s.replace("}}", "\n\\end{bmatrix}")
     s = s.replace("},{", "\\\\\n")
     s = s.replace(",", "&")
+    s = s.replace("*", " \\cdot ")
     
     print s
     copy(s, root)
