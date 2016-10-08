@@ -21,7 +21,7 @@ def to_mat(s):
 def to_tex(s):
     s = s.replace('{{', '\\begin{bmatrix} \n')
     s = s.replace('}}', '\n\\end{bmatrix}')
-    s = s.replace('}, {', '\\\\\n')
+    s = s.replace('}, {', ' \\\\\n')
     s = s.replace(',', ' &')
     s = s.replace('*', ' \\cdot ')
     return s
